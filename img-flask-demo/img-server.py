@@ -70,4 +70,4 @@ if __name__ == '__main__':
     # 解决中文乱码问题
     app.config['JSON_AS_ASCII'] = False
     # 启动服务 指定主机和端口
-    app.run(host='0.0.0.0', port=5003, debug=False, threaded=True)
+    app.run(host='0.0.0.0', port=5000, debug=False, threaded=True)
