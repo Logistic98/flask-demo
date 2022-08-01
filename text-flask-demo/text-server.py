@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import json
-from flask import Blueprint, Flask, jsonify, request
+from flask import Flask, jsonify, request
 from flask_cors import CORS
-from flask_docs import ApiDoc
 
 from log import logger
 from code import ResponseCode, ResponseMessage
@@ -11,42 +10,6 @@ from code import ResponseCode, ResponseMessage
 # 创建一个服务
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
-
-# Flask-Doc接口文档
-ApiDoc(
-    app,
-    title="Flask-Doc接口文档",
-    version="1.0.0",
-    description="Flask API Doc",
-)
-
-api = Blueprint("api", __name__)
-app.config["API_DOC_MEMBER"] = ["api"]
-
-@api.route("/api/moduleName/methodName", methods=["POST"])
-def methodName():
-    """方法功能说明
-    @@@
-    ### args
-    |  args | required | request type | type |  remarks |
-    |-------|----------|--------------|------|----------|
-    | text |  true    |    body      | str  | 输入文本   |
-
-    ### request
-    ```json
-    {"text": "xxx"}
-    ```
-
-    ### return
-    ```json
-    {"code": xxx, "msg": "xxx", "data": "xxx"}
-    ```
-    @@@
-    """
-    return jsonify({"code": 200, "msg": "xxx", "data": "xxx"})
-
-app.register_blueprint(api, url_prefix="/api")
-
 
 """
 # 方法功能说明
@@ -67,6 +30,7 @@ def methodName():
 
     # 业务处理模块
     result = "hello world!"
+    logger.info("测试日志记录")
 
     # 成功的结果返回
     success_response = dict(code=ResponseCode.SUCCESS, msg=ResponseMessage.SUCCESS, data=result)
@@ -75,8 +39,6 @@ def methodName():
 
 
 if __name__ == '__main__':
-    # 打印Flask-Doc接口文档路径
-    print('接口文档地址：http://127.0.0.1:5000/docs/api/')
     # 解决中文乱码问题
     app.config['JSON_AS_ASCII'] = False
     # 启动服务，指定主机和端口
