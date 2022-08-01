@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import json
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from flask_cors import CORS
+from pre_request import pre, Rule
 
 from log import logger
 from code import ResponseCode, ResponseMessage
@@ -14,22 +14,27 @@ CORS(app, supports_credentials=True)
 """
 # 方法功能说明
 """
-@app.route(rule='/moduleName/methodName', methods=['POST'])
+@app.route(rule='/api/moduleName/methodName', methods=['POST'])
 def methodName():
 
-    # 获取JSON格式的请求体，并解析
-    request_data = request.get_data(as_text=True)
-    request_body = json.loads(request_data)
-
-    # 若干参数校验模块
-    text = request_body.get("text")
-    if not text:
+    # 参数校验
+    rule = {
+        "text": Rule(type=str, required=True, gte=3, lte=255),
+        "type": Rule(type=int, required=True, gte=1, lte=1)
+    }
+    try:
+        params = pre.parse(rule=rule)
+    except Exception as e:
+        logger.error(e)
         fail_response = dict(code=ResponseCode.RARAM_FAIL, msg=ResponseMessage.RARAM_FAIL, data=None)
         logger.error(fail_response)
         return jsonify(fail_response)
 
+    # 获取参数
+    text = params.get("text")
+
     # 业务处理模块
-    result = "hello world!"
+    result = text + ",hello world!"
     logger.info("测试日志记录")
 
     # 成功的结果返回
