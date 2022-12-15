@@ -6,7 +6,7 @@ Flask是一个使用Python编写的轻量级Web应用框架。Flask最显著的�
 
 Flask项目地址：[https://github.com/pallets/flask](https://github.com/pallets/flask)
 
-本项目是输入项为文本、图像的Flask接口封装通用模板，代码讲解见：[使用Flask封装集成深度学习算法](https://www.eula.club/使用Flask封装集成深度学习算法.html)
+本项目是输入项为文本、图像的Flask接口封装通用模板，代码讲解见：[使用Flask封装集成深度学习算法](https://www.eula.club/docs/使用Flask封装集成深度学习算法.html)
 
 
 
