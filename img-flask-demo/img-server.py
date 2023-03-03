@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
-import os
 from uuid import uuid1
+
 from flask import Flask, jsonify
 from flask_cors import CORS
 from pre_request import pre, Rule
 
 from code import ResponseCode, ResponseMessage
 from log import logger
-from utils import base64_to_img
+from utils import base64_to_img, create_date_dir
 
 # 创建一个服务
 app = Flask(__name__)
@@ -23,7 +23,7 @@ def methodName():
     # 参数校验
     rule = {
         "img": Rule(type=str, required=True),
-        "ext": Rule(type=str, required=False)
+        "file_name": Rule(type=str, required=False)
     }
     try:
         params = pre.parse(rule=rule)
@@ -35,21 +35,19 @@ def methodName():
 
     # 获取参数
     image_b64 = params.get("img")
-    ext = params.get("ext")
+    file_name = params.get("file_name")
+    if file_name is None:
+        file_name = '{}.jpg'.format(uuid1())
 
     # 将base64字符串解析成图片保存
-    if not os.path.exists('./img'):
-        os.makedirs('./img')
-    uuid = uuid1()
-    if ext is not None:
-        img_path = './img/{}.{}'.format(uuid, ext)
-    else:
-        img_path = './img/{}.jpg'.format(uuid)
+    img_root_path = "./img"
+    img_base_path = create_date_dir(img_root_path)
+    img_path = img_base_path + file_name
     try:
         base64_to_img(image_b64, img_path)
     except Exception as e:
         logger.error(e)
-        fail_response = dict(code=ResponseCode.BUSINESS_FAIL, msg=ResponseMessage.BUSINESS_FAIL, data=None)
+        fail_response = dict(code=ResponseCode.RARAM_FAIL, msg=ResponseMessage.RARAM_FAIL, data=None)
         logger.error(fail_response)
         return jsonify(fail_response)
 
@@ -58,7 +56,7 @@ def methodName():
     logger.info("测试日志记录")
 
     # 处理完成后删除生成的图片文件
-    os.remove(img_path)
+    # os.remove(img_path)
 
     # 成功的结果返回
     success_response = dict(code=ResponseCode.SUCCESS, msg=ResponseMessage.SUCCESS, data=result)

@@ -14,11 +14,11 @@ def img_flask_test():
     f.close()
     base64_data = base64_data.decode()
     # 传输的数据格式
-    data = {'img': base64_data}
+    data = {'img': base64_data, 'file_name': '测试中文.png'}
     # post传递数据
     headers = {'Content-Type': 'application/json'}
     r = requests.post(url, headers=headers, data=json.dumps(data))
-    print(r.text.encode().decode('unicode_escape'))
+    print(r.text)
 
 
 if __name__ == '__main__':
