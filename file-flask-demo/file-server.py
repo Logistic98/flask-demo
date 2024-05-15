@@ -22,7 +22,7 @@ def methodName():
     # 获取参数并参数校验
     file = request.files.get('file')
     if file is None:
-        fail_response = dict(code=ResponseCode.RARAM_FAIL, msg=ResponseMessage.RARAM_FAIL, data=None)
+        fail_response = dict(code=ResponseCode.PARAM_FAIL, msg=ResponseMessage.PARAM_FAIL, data=None)
         logger.error(fail_response)
         return jsonify(fail_response)
     file_name = file.filename
@@ -31,7 +31,7 @@ def methodName():
     # 校验扩展名
     suffix_list = [".avi", ".mov", ".rmvb", ".rm", ".flv", ".mp4", ".3gp", ".mpeg", ".mpg", ".dat", ".asf", ".navi", ".mkv", ".webm", ".ra", ".wmv"]
     if suffix not in suffix_list:
-        fail_response = dict(code=ResponseCode.RARAM_FAIL, msg=ResponseMessage.RARAM_FAIL, data=None)
+        fail_response = dict(code=ResponseCode.PARAM_FAIL, msg=ResponseMessage.PARAM_FAIL, data=None)
         logger.error(fail_response)
         return jsonify(fail_response)
 
