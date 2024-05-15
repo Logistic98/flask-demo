@@ -29,7 +29,7 @@ def methodName():
         params = pre.parse(rule=rule)
     except Exception as e:
         logger.error(e)
-        fail_response = dict(code=ResponseCode.RARAM_FAIL, msg=ResponseMessage.RARAM_FAIL, data=None)
+        fail_response = dict(code=ResponseCode.PARAM_FAIL, msg=ResponseMessage.PARAM_FAIL, data=None)
         logger.error(fail_response)
         return jsonify(fail_response)
 
@@ -47,7 +47,7 @@ def methodName():
         base64_to_img(image_b64, img_path)
     except Exception as e:
         logger.error(e)
-        fail_response = dict(code=ResponseCode.RARAM_FAIL, msg=ResponseMessage.RARAM_FAIL, data=None)
+        fail_response = dict(code=ResponseCode.PARAM_FAIL, msg=ResponseMessage.PARAM_FAIL, data=None)
         logger.error(fail_response)
         return jsonify(fail_response)
 
