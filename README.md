@@ -2,7 +2,7 @@
 
 ## 1. 项目概述
 
-本项目是输入项为文本、图像、文件的Flask接口封装通用模板，代码讲解见：[使用Flask封装集成深度学习算法](https://www.eula.club/blogs/使用Flask封装集成深度学习算法.html)
+本项目是输入项为文本、图像、文件的Flask接口封装通用模板，代码讲解见：[基于FastAPI和Streamlit的AI应用开发](https://www.imiao.top/blogs/基于FastAPI和Streamlit的AI应用开发.html)
 
 ## 2. 示例算法
 
